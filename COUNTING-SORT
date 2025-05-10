@@ -1,0 +1,27 @@
+% Counting Sort
+counting_sort(List, Sorted) :-
+    max_list(List, Max),
+    count_elements(List, 0, Max, Counts),
+    counts_to_list(Counts, 0, Sorted).
+
+count_elements(_, I, Max, []) :- I > Max.
+count_elements(List, I, Max, [C|Rest]) :-
+    count_occurrences(I, List, C),
+    I1 is I + 1,
+    count_elements(List, I1, Max, Rest).
+
+count_occurrences(_, [], 0).
+count_occurrences(X, [X|T], N) :-
+    count_occurrences(X, T, N1),
+    N is N1 + 1.
+count_occurrences(X, [Y|T], N) :-
+    X \= Y,
+    count_occurrences(X, T, N).
+
+counts_to_list([], _, []).
+counts_to_list([C|T], I, Result) :-
+    length(Reps, C),
+    maplist(=(I), Reps),
+    I1 is I + 1,
+    counts_to_list(T, I1, Rest),
+    append(Reps, Rest, Result).
