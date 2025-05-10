@@ -1,0 +1,16 @@
+% Selection Sort
+selection_sort([], []).
+selection_sort(List, [Min|SortedRest]) :-
+    select_min(List, Min, Rest),
+    selection_sort(Rest, SortedRest).
+
+select_min([H|T], Min, Rest) :-
+    select_min(T, H, [], Min, Rest).
+
+select_min([], Min, Acc, Min, Acc).
+select_min([H|T], MinSoFar, Acc, Min, Rest) :-
+    ( H < MinSoFar ->
+        select_min(T, H, [MinSoFar|Acc], Min, Rest)
+    ;
+        select_min(T, MinSoFar, [H|Acc], Min, Rest)
+    ).
