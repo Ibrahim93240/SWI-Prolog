@@ -1,0 +1,13 @@
+ % Bubble Sort
+bubble_sort(List, Sorted) :-
+    bubble_pass(List, List1, Swapped),
+    ( Swapped -> bubble_sort(List1, Sorted) ; Sorted = List1 ).
+
+bubble_pass([X,Y|Rest], [Y|Result], true) :-
+    X > Y,
+    bubble_pass([X|Rest], Result, _).
+bubble_pass([X,Y|Rest], [X|Result], Swapped) :-
+    X =< Y,
+    bubble_pass([Y|Rest], Result, Swapped).
+bubble_pass([X], [X], false).
+bubble_pass([], [], false).
