@@ -1,0 +1,20 @@
+% Heap Sort
+heap_sort(List, Sorted) :-
+    list_to_heap(List, Heap),
+    heap_to_list(Heap, Sorted).
+
+list_to_heap([], []).
+list_to_heap([H|T], Heap) :-
+    list_to_heap(T, TempHeap),
+    insert_heap(H, TempHeap, Heap).
+
+insert_heap(X, Heap, [X|Heap]).
+
+heap_to_list([], []).
+heap_to_list(Heap, [Min|Sorted]) :-
+    select_min_heap(Min, Heap, NewHeap),
+    heap_to_list(NewHeap, Sorted).
+
+select_min_heap(Min, Heap, Rest) :-
+    min_member(Min, Heap),
+    delete(Heap, Min, Rest).
