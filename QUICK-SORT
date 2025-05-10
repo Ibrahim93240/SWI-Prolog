@@ -1,0 +1,15 @@
+% Quick Sort
+quick_sort([], []).
+quick_sort([H|T], Sorted) :-
+    partition(H, T, Smaller, Greater),
+    quick_sort(Smaller, SortedSmaller),
+    quick_sort(Greater, SortedGreater),
+    append(SortedSmaller, [H|SortedGreater], Sorted).
+
+partition(_, [], [], []).
+partition(Pivot, [H|T], [H|Smaller], Greater) :-
+    H =< Pivot,
+    partition(Pivot, T, Smaller, Greater).
+partition(Pivot, [H|T], Smaller, [H|Greater]) :-
+    H > Pivot,
+    partition(Pivot, T, Smaller, Greater).
