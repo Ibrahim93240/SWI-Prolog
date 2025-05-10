@@ -1,0 +1,22 @@
+% Merge Sort
+merge_sort([], []).
+merge_sort([X], [X]).
+merge_sort(List, Sorted) :-
+    split(List, Left, Right),
+    merge_sort(Left, SortedLeft),
+    merge_sort(Right, SortedRight),
+    merge(SortedLeft, SortedRight, Sorted).
+
+split([], [], []).
+split([X], [X], []).
+split([X,Y|T], [X|Left], [Y|Right]) :-
+    split(T, Left, Right).
+
+merge([], L, L).
+merge(L, [], L).
+merge([X|Xs], [Y|Ys], [X|Merged]) :-
+    X =< Y,
+    merge(Xs, [Y|Ys], Merged).
+merge([X|Xs], [Y|Ys], [Y|Merged]) :-
+    X > Y,
+    merge([X|Xs], Ys, Merged).
